@@ -7,36 +7,20 @@ import XCTest
 import MyFirstMacroMacros
 
 let testMacros: [String: Macro.Type] = [
-    "stringify": StringifyMacro.self,
+    "IsURL": IsURLMacro.self,
 ]
 #endif
 
 final class MyFirstMacroTests: XCTestCase {
-    func testMacro() throws {
+    func testIsURLMacro() throws {
         #if canImport(MyFirstMacroMacros)
         assertMacroExpansion(
             """
-            #stringify(a + b)
+            #IsURL(\"https://consulting.myjobly.fr\")
             """,
             expandedSource: """
-            (a + b, "a + b")
+            URL(string: \"https://consulting.myjobly.fr\")!
             """,
-            macros: testMacros
-        )
-        #else
-        throw XCTSkip("macros are only supported when running tests for the host platform")
-        #endif
-    }
-
-    func testMacroWithStringLiteral() throws {
-        #if canImport(MyFirstMacroMacros)
-        assertMacroExpansion(
-            #"""
-            #stringify("Hello, \(name)")
-            """#,
-            expandedSource: #"""
-            ("Hello, \(name)", #""Hello, \(name)""#)
-            """#,
             macros: testMacros
         )
         #else
