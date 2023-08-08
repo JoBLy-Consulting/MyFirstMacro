@@ -5,7 +5,7 @@ import SwiftSyntaxMacros
 
 /// Implementation of the `IsURL` macro, which evaluates
 /// a String value as a valid URL and return the unwrapped value
-/// and the source code that produced the value. For example
+/// and the source code that produced the value.
 ///
 import Foundation
 enum URLMacroErrors: Error, CustomStringConvertible {
